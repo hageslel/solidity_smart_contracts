@@ -1,4 +1,4 @@
-### Project Objective
+## Project Objective
 
 The objective of this project was to create three separate smart contracts to handle varying equity distributions.  The Associate Profit Splitter contract has been designed to split profits evenly between three employees.  The Tiered Profit Splitter contract splits profits by employee based on a designated percentage.  Finally, the Deferred Equity Plan contract was designed to distribute equity shares equally over a four year vesting period to each employee.  
 
@@ -25,7 +25,7 @@ This contract was created to distribute profits on a tiered basis to three emplo
 
 The gif below provides an example of how the contract can be interacted with.  It was deployed here to my LocalHost 8545 and tested by sending wei  and ETH to each employee.  ETH was used to allow for a better visual of transactions occuring on all accounts.  To ensure the "balance" function worked correctly by always displaying a value of 0, wei had to be used.  This is due to uint limitations being exceeded (maximum integer values) when transacting with ETH.    
 
-![Local Contract 1 Deploy](Screenshots/contract_two.gif)
+![Local Contract 2 Deploy](Screenshots/contract_two.gif)
 
 This contract was also deployed on Ropsten.  The contract address can be found below, along with a link directly to the contract address on Etherscan. 
   - Contract Address: 0xD4f3c127B83bc0c9481e569508f8313a9fE24F6C
@@ -33,4 +33,25 @@ This contract was also deployed on Ropsten.  The contract address can be found b
 
 The below gif outlines the deployment of the contract to Ropsten.  
 
-![Ropsten Contract 1 Deploy](Screenshots/contract_two_ropsten.gif)
+![Ropsten Contract 2 Deploy](Screenshots/contract_two_ropsten.gif)
+
+### Deferred Equity Plan Contract
+
+This contract was created to distribute equity shares annually to employees.  The contract address is defined as human resources, as they would be the ones utilizing this contract to ensure proper equity distributions or contract terminations for each employee.  Inital variables defined in the contract are "employee", "active", "total_shares", "annual_distribution", "start_time", and "unlock_time".  The "active" variable determines if the employee is still an active employee and eligible to receive shares.  The variables of "total_shares" and "annual_distribution" are used to determine how many shares need to be distributed each year, based on a 4 year vesting period.  To ensure shares are only distributed annually, the "start_time" variable is set to now and the "unlock_time" variable is 365 days from now.  This means shares will be distributed once every 365 days, until all shares have been distributed.  
+
+To actually distibute shares, a "distribute" function was created.  Within this function there are four require statements.  These ensure that the msg.sender is either human resources or the employee, that the employee is still active, that the required unlock time has been satisfied, and that the total amount of shares distributed do not exceed the total shares each employee is elibible to receive.  The "unlock_time" variable is then increased by 365 days to restart the clock before more shares are distributed.  A "distributed_shares" variable is defined, which calculates total share distribution for each employee.  Finally, and if statement is encorporated to double check share distributions, just in case the employee cashes out after 5+ years.  The deactivate function allows human resources or the employee to deactivate the contract at any time.  Similar to the two prior contracts, a fallback function closes out this contract.  
+
+This contract was tested using "fakenow" and the "fast_forward" function.  This allowed the unlock time to be met and simulated distributions to be made.  After ensuring the contract worked, all "fakenow" syntax was reverted back to "now" syntax.  Additionally, the "fast_forward" function was commented out.  The gif below provides an example of how the contract can be interacted with.  It was deployed here to my LocalHost 8545 and the "fast_forward" function was initiated.  Once that was done shares were able to be distributed and the balance was able to be checked.  This can be viewed via the gif below.  
+
+![Local Contract 3 Deploy](Screenshots/contract_three.gif)
+
+This contract was also deployed on Ropsten.  The contract address can be found below, along with a link directly to the contract address on Etherscan. 
+  - Contract Address: 0xc9f60D5F3bd46639F18F97937e3dc07B10a68def
+    - Etherscan Link: https://ropsten.etherscan.io/address/0xc9f60d5f3bd46639f18f97937e3dc07b10a68def
+
+The below gif outlines the deployment of the contract to Ropsten.  
+
+![Ropsten Contract 3 Deploy](Screenshots/contract_three_ropsten.gif)
+
+
+
