@@ -22,3 +22,15 @@ The below gif outlines the deployment of the contract to Ropsten.
 ### Tiered Profit Splitter Contract
 
 This contract was created to distribute profits on a tiered basis to three employees.  Similar to the first contract, a constructor function was utilized to allow for multiple contract uses.  Within the deposit function of this contract, a points variable was defined to equal msg.value / 100.  This calculates rudimentary percentages for ease of use within the contract.  The three employees are assigned various percentages of profit that they will receive (60% / 25% / 15%).  A total running amount of profits distributed was calculated via the "total" variable.  This was then subtracted from the original value and any reamaining profits are distributed to the highest profit earner, being employee one in this contract.  This ensures no balance of wei is leftover.  Finally, a fallback function is included in this contract as well to accept any deposits from external accounts. 
+
+The gif below provides an example of how the contract can be interacted with.  It was deployed here to my LocalHost 8545 and tested by sending wei  and ETH to each employee.  ETH was used to allow for a better visual of transactions occuring on all accounts.  To ensure the "balance" function worked correctly by always displaying a value of 0, wei had to be used.  This is due to uint limitations being exceeded (maximum integer values) when transacting with ETH.    
+
+![Local Contract 1 Deploy](Screenshots/contract_two.gif)
+
+This contract was also deployed on Ropsten.  The contract address can be found below, along with a link directly to the contract address on Etherscan. 
+  - Contract Address: 0xD4f3c127B83bc0c9481e569508f8313a9fE24F6C
+    - Etherscan Link: https://ropsten.etherscan.io/address/0xd4f3c127b83bc0c9481e569508f8313a9fe24f6c
+
+The below gif outlines the deployment of the contract to Ropsten.  
+
+![Ropsten Contract 1 Deploy](Screenshots/contract_two_ropsten.gif)
